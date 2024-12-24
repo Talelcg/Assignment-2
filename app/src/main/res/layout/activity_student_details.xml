@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StudentDetailsActivity">
+
+    <ImageView
+        android:id="@+id/imageProfile"
+        android:layout_width="428dp"
+        android:layout_height="278dp"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/avatar" />
+
+    <TextView
+        android:id="@+id/View_Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="30dp"
+        android:text="Name: John Doe"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageProfile" />
+
+    <TextView
+        android:id="@+id/View_Id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="ID: 123456789"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/View_Name"
+        app:layout_constraintTop_toBottomOf="@+id/View_Name" />
+
+    <TextView
+        android:id="@+id/View_Address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Address: 123 Main Street"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/View_Name"
+        app:layout_constraintTop_toBottomOf="@+id/View_Id" />
+
+    <TextView
+        android:id="@+id/View_Phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Phone: 050-1234567"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/View_Name"
+        app:layout_constraintTop_toBottomOf="@+id/View_Address" />
+
+    <TextView
+        android:id="@+id/View_Status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Checked: Yes"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/View_Name"
+        app:layout_constraintTop_toBottomOf="@+id/View_Phone" />
+
+
+    <Button
+        android:id="@+id/button_Edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Edit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button_Cancel"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <Button
+        android:id="@+id/button_Cancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_Edit" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
