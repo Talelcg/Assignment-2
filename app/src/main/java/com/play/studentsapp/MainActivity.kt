@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        // התאמת ה־RecyclerView
+
         students = Model.shared.students
         val recyclerView: RecyclerView = findViewById(R.id.students_recycler_view)
         recyclerView.setHasFixedSize(true)
@@ -47,29 +47,29 @@ class MainActivity : AppCompatActivity() {
         adapter = StudentsRecyclerAdapter(students)
         recyclerView.adapter = adapter
 
-        // הגדרת כפתור הוספת סטודנט
+
         val addStudentButton: Button = findViewById(R.id.main_acitivity_add_student_button)
         addStudentButton.setOnClickListener {
             val intent = Intent(this, AddStudentActivity::class.java)
-            resultLauncher.launch(intent)  // פותחים את הפעולה עם שמיעת התוצאה
+            resultLauncher.launch(intent)
         }
 
-        // הגדרת OnItemClickListener
+
         adapter.listener = object : OnItemClickListener {
             override fun onItemClick(position: Int) {
                 val student = students[position]
                 val intent = Intent(this@MainActivity, StudentDetailsActivity::class.java) // פותחים את דף פרטי הסטודנט
-                // העברת הנתונים של הסטודנט לדף הפרטים
+
                 intent.putExtra("student_name", student.name)
                 intent.putExtra("student_id", student.id)
                 intent.putExtra("student_phone", student.phone)
                 intent.putExtra("student_address", student.address)
                 intent.putExtra("student_isChecked", student.isChecked)
-                startActivity(intent) // פותחים את דף פרטי הסטודנט
+                startActivity(intent)
             }
 
             override fun onItemClick(student: Student?) {
-                // אפשרות נוספת במקרה של פרטי הסטודנט, כאן נתקלנו בקוד מיותר
+
             }
         }
     }

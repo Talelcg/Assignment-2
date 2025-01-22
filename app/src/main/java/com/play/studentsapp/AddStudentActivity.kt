@@ -1,6 +1,5 @@
 package com.play.studentsapp
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -32,14 +31,12 @@ class AddStudentActivity : AppCompatActivity() {
         val savedMessageTextView: TextView = findViewById(R.id.add_student_activity_save_message_text_view)
         val checkButton: CheckBox = findViewById(R.id.studentDetailsChecked)
 
-        // קבלת הנתונים שנשלחו מ- MainActivity
         val studentName = intent.getStringExtra("student_name")
         val studentId = intent.getStringExtra("student_id")
         val studentPhone = intent.getStringExtra("student_phone")
         val studentAddress = intent.getStringExtra("student_address")
         val studentIsChecked = intent.getBooleanExtra("student_isChecked", false)
 
-        // הצגת הנתונים בשדות
         nameEditText.setText(studentName)
         idEditText.setText(studentId)
         phoneEditText.setText(studentPhone)
@@ -51,16 +48,50 @@ class AddStudentActivity : AppCompatActivity() {
         }
 
         saveButton.setOnClickListener {
-            val name = nameEditText.text.toString()
-            val id = idEditText.text.toString()
-            val phone = phoneEditText.text.toString()
-            val address = addressEditText.text.toString()
+            val name = nameEditText.text.toString().trim()
+            val id = idEditText.text.toString().trim()
+            val phone = phoneEditText.text.toString().trim()
+            val address = addressEditText.text.toString().trim()
             val checked = checkButton.isChecked
-            Model.shared.addStudent(name, id, phone, address, pictureResId = "", checked)
 
-            setResult(RESULT_OK) // or RESULT_CANCELED if you want to indicate failure
 
-            savedMessageTextView.text = "Name: $name ID: $id $phone $address is saved!!!"
+            if (name.isEmpty()) {
+                nameEditText.error = "נא להזין שם"
+                return@setOnClickListener
+            } else if (!name.matches(Regex("^[a-zA-Zא-ת ]+$"))) { // תומך באותיות בעברית ובאנגלית
+                nameEditText.error = "שם חייב להכיל אותיות בלבד ללא מספרים או תווים מיוחדים"
+                return@setOnClickListener
+            }
+
+            if (id.isEmpty()) {
+                idEditText.error = "נא להזין תעודת זהות"
+                return@setOnClickListener
+            } else if (id.length != 9 || !id.all { it.isDigit() }) {
+                idEditText.error = "תעודת זהות חייבת להכיל 9 ספרות"
+                return@setOnClickListener
+            }
+
+            if (phone.isEmpty()) {
+                phoneEditText.error = "נא להזין מספר טלפון"
+                return@setOnClickListener
+            } else if (!phone.matches(Regex("^\\d{10}$"))) {
+                phoneEditText.error = "מספר טלפון חייב להיות בן 10 ספרות"
+                return@setOnClickListener
+            }
+
+            if (address.isEmpty()) {
+                addressEditText.error = "נא להזין כתובת"
+                return@setOnClickListener
+            }
+
+            val success = Model.shared.addStudent(name, id, phone, address, pictureResId = "", checked)
+            if (success) {
+                savedMessageTextView.text = "הסטודנט נוסף בהצלחה!\nשם: $name, ת.ז: $id"
+                setResult(RESULT_OK)
+                finish()
+            } else {
+                savedMessageTextView.text = "סטודנט עם תעודת זהות $id כבר קיים במערכת."
+            }
         }
     }
 }
